@@ -1,0 +1,245 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+#include <map>
+#include <set>
+#include <tuple>
+#include <fstream>
+#include <sstream>
+#include <functional>
+#include <thread>
+#include <mutex>
+#include <future>
+#include <chrono>
+#include <cmath>
+#include <random>
+#include <regex>
+#include <filesystem>
+
+// 基本構文と制御フロー
+int add(int a, int b) { return a + b; }
+int main() {
+    std::cout << "Hello, World!" << std::endl;
+    std::vector<int> nums{1, 2, 3, 4, 5};
+    for (int num : nums) std::cout << num << " ";
+    std::cout << std::endl;
+    return 0;
+}
+
+// 配列操作とアルゴリズム
+std::vector<int> squares(const std::vector<int>& v) {
+    std::vector<int> result;
+    std::transform(v.begin(), v.end(), std::back_inserter(result), [](int n) { return n * n; });
+    return result;
+}
+
+// クラスと継承
+class Animal {
+public:
+    virtual void speak() const { std::cout << "Animal sound" << std::endl; }
+    virtual ~Animal() = default;
+};
+class Dog : public Animal {
+public:
+    void speak() const override { std::cout << "Woof!" << std::endl; }
+};
+Dog dog;
+dog.speak();
+
+// Lambda式とstd::function
+std::function<int(int, int)> multiply = [](int a, int b) { return a * b; };
+
+// ファイル操作
+std::ofstream out("output.txt");
+out << "Hello, file!" << std::endl;
+out.close();
+std::ifstream in("output.txt");
+std::string content;
+std::getline(in, content);
+std::cout << content << std::endl;
+
+// スマートポインタ
+#include <memory>
+std::shared_ptr<int> sp = std::make_shared<int>(10);
+std::weak_ptr<int> wp = sp;
+std::unique_ptr<int> up = std::make_unique<int>(20);
+
+// マルチスレッドと同期
+std::mutex mtx;
+std::thread t1([]() {
+    std::lock_guard<std::mutex> lock(mtx);
+    std::cout << "Thread 1" << std::endl;
+});
+std::thread t2([]() {
+    std::lock_guard<std::mutex> lock(mtx);
+    std::cout << "Thread 2" << std::endl;
+});
+t1.join();
+t2.join();
+
+// 非同期処理とstd::future
+auto asyncTask = std::async(std::launch::async, [] { return 42; });
+std::cout << "Async result: " << asyncTask.get() << std::endl;
+
+// 時間測定
+auto start = std::chrono::high_resolution_clock::now();
+// 処理
+auto end = std::chrono::high_resolution_clock::now();
+std::cout << "Elapsed time: " << std::chrono::duration<double>(end - start).count() << "s" << std::endl;
+
+// std::mapとstd::set
+std::map<std::string, int> map = {{"Alice", 30}, {"Bob", 25}};
+std::set<int> set = {1, 2, 3, 4, 4};
+map["Charlie"] = 35;
+for (const auto& [key, value] : map) std::cout << key << ": " << value << std::endl;
+
+// std::tupleとstd::pair
+std::tuple<int, std::string, float> t = {1, "Hello", 3.14};
+auto [a, b, c] = t;
+std::pair<int, std::string> p = {42, "Answer"};
+
+// std::regexによる正規表現
+std::regex r(R"(\w+@\w+\.\w+)");
+std::string email = "test@example.com";
+if (std::regex_match(email, r)) std::cout << "Valid email!" << std::endl;
+
+// ファイルシステム
+namespace fs = std::filesystem;
+fs::create_directory("example_dir");
+for (const auto& entry : fs::directory_iterator(".")) std::cout << entry.path() << std::endl;
+
+// ランダム数生成
+std::random_device rd;
+std::mt19937 gen(rd());
+std::uniform_int_distribution<> dist(1, 100);
+std::cout << "Random number: " << dist(gen) << std::endl;
+
+// テンプレート
+template <typename T>
+T maxValue(const T& a, const T& b) { return a > b ? a : b; }
+std::cout << maxValue(5, 10) << std::endl;
+
+// STLアルゴリズム
+std::vector<int> vec = {5, 2, 8, 1};
+std::sort(vec.begin(), vec.end());
+auto it = std::find(vec.begin(), vec.end(), 8);
+if (it != vec.end()) std::cout << "Found: " << *it << std::endl;
+
+// OpenCVによる画像処理
+#include <opencv2/opencv.hpp>
+cv::Mat img = cv::imread("image.jpg");
+if (!img.empty()) {
+    cv::cvtColor(img, img, cv::COLOR_BGR2GRAY);
+    cv::imwrite("output.jpg", img);
+}
+
+// デバッグ用マクロ
+#define DEBUG(x) std::cout << #x << ": " << x << std::endl;
+int num = 42;
+DEBUG(num);
+
+// カスタム例外クラス
+class CustomException : public std::exception {
+public:
+    const char* what() const noexcept override { return "Custom Exception!"; }
+};
+try {
+    throw CustomException();
+} catch (const std::exception& e) {
+    std::cerr << e.what() << std::endl;
+}
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <map>
+#include <set>
+#include <string>
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <chrono>
+#include <future>
+#include <regex>
+#include <fstream>
+
+// 基本構文
+void greet(const std::string& name) {
+    std::cout << "Hello, " << name << "!" << std::endl;
+}
+int main() {
+    greet("World");
+
+    // 配列とベクタ
+    std::vector<int> vec{1, 2, 3, 4, 5};
+    vec.push_back(6);
+    for (int n : vec) std::cout << n << " ";
+
+    // STLアルゴリズム
+    std::sort(vec.begin(), vec.end(), std::greater<>());
+    auto it = std::find(vec.begin(), vec.end(), 3);
+    if (it != vec.end()) std::cout << "\nFound: " << *it;
+
+    // マップとセット
+    std::map<std::string, int> age{{"Alice", 30}, {"Bob", 25}};
+    for (const auto& [name, age] : age) std::cout << "\n" << name << ": " << age;
+
+    std::set<int> unique_nums{1, 2, 3, 2};
+    unique_nums.insert(4);
+    for (int n : unique_nums) std::cout << " " << n;
+
+    // スマートポインタ
+    std::unique_ptr<int> ptr = std::make_unique<int>(42);
+    std::cout << "\nSmart pointer value: " << *ptr;
+
+    // スレッドとミューテックス
+    std::mutex mtx;
+    auto task = [&mtx]() {
+        std::lock_guard<std::mutex> lock(mtx);
+        std::cout << "\nThread ID: " << std::this_thread::get_id();
+    };
+    std::thread t1(task), t2(task);
+    t1.join(); t2.join();
+
+    // chronoで時間測定
+    auto start = std::chrono::high_resolution_clock::now();
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    auto end = std::chrono::high_resolution_clock::now();
+    std::cout << "\nElapsed: " 
+              << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() 
+              << " ms";
+
+    // 非同期処理
+    auto future = std::async(std::launch::async, []() { return 42; });
+    std::cout << "\nAsync result: " << future.get();
+
+    // 正規表現
+    std::regex re(R"(\w+@\w+\.\w+)");
+    std::smatch match;
+    std::string email = "test@example.com";
+    if (std::regex_search(email, match, re)) std::cout << "\nEmail matched: " << match[0];
+
+    // ファイル操作
+    std::ofstream file("example.txt");
+    file << "Hello, file!";
+    file.close();
+    std::ifstream infile("example.txt");
+    std::string content;
+    while (std::getline(infile, content)) std::cout << "\nFile content: " << content;
+
+    // クラスとポリモーフィズム
+    class Shape {
+    public:
+        virtual void draw() const { std::cout << "\nDrawing shape"; }
+        virtual ~Shape() = default;
+    };
+    class Circle : public Shape {
+    public:
+        void draw() const override { std::cout << "\nDrawing circle"; }
+    };
+    std::unique_ptr<Shape> shape = std::make_unique<Circle>();
+    shape->draw();
+
+    return 0;
+}

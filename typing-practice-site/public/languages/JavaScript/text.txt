@@ -1,0 +1,309 @@
+// 基本構文と配列操作
+function greet(name) { return `Hello, ${name}!`; }
+console.log(greet("World"));
+const squares = Array.from({ length: 10 }, (_, i) => i ** 2);
+const evens = squares.filter(x => x % 2 === 0);
+
+// オブジェクト操作
+const user = { name: "Alice", age: 25 };
+user.age += 1;
+const { name, age } = user;
+
+// 関数式と高階関数
+const add = (a, b) => a + b;
+const double = x => x * 2;
+const nums = [1, 2, 3];
+const doubled = nums.map(double);
+const sum = nums.reduce((acc, val) => acc + val, 0);
+
+// 非同期処理 (Promise, async/await)
+const fetchData = async () => {
+  try {
+    const res = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+    const data = await res.json();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+fetchData();
+
+// クラスとプロトタイプ
+class Person {
+  constructor(name, age) { this.name = name; this.age = age; }
+  greet() { return `Hi, I'm ${this.name}, ${this.age} years old.`; }
+}
+const bob = new Person("Bob", 30);
+console.log(bob.greet());
+
+// DOM操作
+document.querySelector("body").style.background = "lightblue";
+const div = document.createElement("div");
+div.textContent = "Hello, DOM!";
+document.body.appendChild(div);
+
+// イベントリスナー
+document.addEventListener("click", () => console.log("Document clicked!"));
+
+// モジュール (ES6)
+export const multiply = (a, b) => a * b;
+import { multiply } from "./math.js";
+
+// 配列とオブジェクトのスプレッド演算子
+const nums2 = [...nums, 4, 5];
+const userCopy = { ...user, city: "Tokyo" };
+
+// JSON操作
+const jsonData = JSON.stringify(user);
+const parsedData = JSON.parse(jsonData);
+
+// Dateオブジェクト
+const now = new Date();
+console.log(now.toISOString());
+
+// Mathとランダム
+const randomNum = Math.floor(Math.random() * 100);
+console.log(Math.sqrt(16));
+
+// 正規表現
+const email = "test@example.com";
+const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+// SetとMap
+const set = new Set([1, 2, 3, 3]);
+const map = new Map([["key1", "value1"], ["key2", "value2"]]);
+map.set("key3", "value3");
+
+// ローカルストレージとセッションストレージ
+localStorage.setItem("key", "value");
+console.log(localStorage.getItem("key"));
+
+// タイマー
+setTimeout(() => console.log("Timeout!"), 1000);
+const interval = setInterval(() => console.log("Interval!"), 500);
+setTimeout(() => clearInterval(interval), 3000);
+
+// WebSocket
+const socket = new WebSocket("wss://example.com/socket");
+socket.addEventListener("open", () => socket.send("Hello!"));
+socket.addEventListener("message", event => console.log(event.data));
+
+// axiosでHTTPリクエスト
+import axios from "axios";
+axios.get("https://jsonplaceholder.typicode.com/posts").then(res => console.log(res.data));
+
+// Node.jsファイル操作
+import fs from "fs";
+fs.writeFileSync("example.txt", "Hello, Node.js!");
+console.log(fs.readFileSync("example.txt", "utf-8"));
+
+// Stream
+const stream = fs.createReadStream("example.txt");
+stream.on("data", chunk => console.log(chunk.toString()));
+
+// Expressサーバー
+import express from "express";
+const app = express();
+app.get("/", (req, res) => res.send("Hello, Express!"));
+app.listen(3000, () => console.log("Server running on http://localhost:3000"));
+
+// Web API (fetch)
+fetch("https://jsonplaceholder.typicode.com/users")
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
+// テスト (Jest)
+test("add function", () => { expect(add(2, 3)).toBe(5); });
+
+// ソケット通信 (Socket.IO)
+import { Server } from "socket.io";
+const io = new Server(3001);
+io.on("connection", socket => {
+  console.log("User connected");
+  socket.on("message", msg => console.log(msg));
+});
+
+// ES6デストラクチャリングとテンプレートリテラル
+const [first, second] = nums;
+console.log(`First: ${first}, Second: ${second}`);
+
+// パフォーマンス測定
+console.time("loop");
+for (let i = 0; i < 1000; i++) {}
+console.timeEnd("loop");
+
+// Cryptoモジュールでハッシュ生成
+import crypto from "crypto";
+const hash = crypto.createHash("sha256").update("password").digest("hex");
+console.log(hash);
+
+// ストリームのパイプ処理
+import zlib from "zlib";
+const gzip = zlib.createGzip();
+fs.createReadStream("example.txt").pipe(gzip).pipe(fs.createWriteStream("example.txt.gz"));
+
+// 基本構文と制御フロー
+const greet = name => `Hello, ${name}!`;
+console.log(greet("World"));
+const numbers = Array.from({ length: 10 }, (_, i) => i);
+for (const num of numbers) {
+  if (num % 2 === 0) continue;
+  console.log(num);
+}
+
+// 配列操作 (flatMap, find, some, every)
+const nested = [1, [2, [3, 4]]];
+const flattened = nested.flat(2);
+const found = numbers.find(n => n > 5);
+const hasNegative = numbers.some(n => n < 0);
+const allPositive = numbers.every(n => n >= 0);
+
+// オブジェクトリテラルと動的プロパティ
+const dynamicKey = "city";
+const user = { name: "Alice", age: 25, [dynamicKey]: "Tokyo" };
+delete user.age;
+console.log(Object.keys(user), Object.values(user), Object.entries(user));
+
+// 関数のデフォルト引数と残余引数
+const sum = (a = 0, b = 0) => a + b;
+const logAll = (...args) => console.log(args);
+logAll(1, 2, 3, 4);
+
+// イミュータブル操作 (Object.freeze)
+const frozenObj = Object.freeze({ x: 10 });
+try {
+  frozenObj.x = 20; // エラーになる (strictモード)
+} catch (e) {
+  console.log("Cannot modify frozen object.");
+}
+
+// Promiseチェーンとエラーハンドリング
+const fetchData = url =>
+  fetch(url)
+    .then(res => {
+      if (!res.ok) throw new Error("Failed to fetch");
+      return res.json();
+    })
+    .catch(err => console.error(err));
+fetchData("https://jsonplaceholder.typicode.com/posts");
+
+// 非同期関数とfor-await-of
+const asyncGen = async function* () {
+  yield "Hello";
+  yield "Async";
+  yield "Generator";
+};
+(async () => {
+  for await (const word of asyncGen()) {
+    console.log(word);
+  }
+})();
+
+// モジュール (CommonJSとES Modules)
+const os = require("os"); // CommonJS
+console.log(`Platform: ${os.platform()}`);
+import path from "path"; // ES Module
+console.log(path.basename("/foo/bar/baz.txt"));
+
+// Errorクラスとカスタムエラー
+class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "ValidationError";
+  }
+}
+try {
+  throw new ValidationError("Invalid input");
+} catch (err) {
+  console.error(`${err.name}: ${err.message}`);
+}
+
+// MapとWeakMap
+const map = new Map();
+map.set("key1", "value1").set("key2", "value2");
+console.log(map.get("key1"));
+const weakMap = new WeakMap();
+let obj = {};
+weakMap.set(obj, "metadata");
+obj = null; // ガベージコレクションで自動削除
+
+// 正規表現の高度な活用
+const regex = /(\w+)@(\w+)\.(\w+)/;
+const [, userPart, domain, tld] = "user@example.com".match(regex);
+console.log(`User: ${userPart}, Domain: ${domain}, TLD: ${tld}`);
+
+// カスタムイベント
+const event = new Event("customEvent");
+document.addEventListener("customEvent", () => console.log("Custom Event Triggered!"));
+document.dispatchEvent(event);
+
+// IndexedDB
+const request = indexedDB.open("myDatabase", 1);
+request.onupgradeneeded = event => {
+  const db = event.target.result;
+  db.createObjectStore("store", { keyPath: "id" });
+};
+request.onsuccess = event => {
+  const db = event.target.result;
+  const transaction = db.transaction("store", "readwrite");
+  const store = transaction.objectStore("store");
+  store.add({ id: 1, name: "Alice" });
+};
+
+// Clipboard API
+navigator.clipboard.writeText("Copied to clipboard").then(() => console.log("Text copied!"));
+
+// Canvas描画
+const canvas = document.createElement("canvas");
+canvas.width = 200;
+canvas.height = 200;
+const ctx = canvas.getContext("2d");
+ctx.fillStyle = "blue";
+ctx.fillRect(50, 50, 100, 100);
+document.body.appendChild(canvas);
+
+// Web Worker
+const worker = new Worker(URL.createObjectURL(new Blob([`
+  onmessage = e => postMessage(e.data * 2);
+`])));
+worker.onmessage = e => console.log(`Result from Worker: ${e.data}`);
+worker.postMessage(5);
+
+// Crypto APIでランダム値
+const array = new Uint32Array(10);
+crypto.getRandomValues(array);
+console.log(array);
+
+// Performance API
+performance.mark("start");
+// ...処理
+performance.mark("end");
+performance.measure("MyOperation", "start", "end");
+console.log(performance.getEntriesByType("measure"));
+
+// Intersection Observer
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) console.log("Element in view");
+  });
+});
+observer.observe(document.querySelector("div"));
+
+// WebRTCピア接続
+const peerConnection = new RTCPeerConnection();
+peerConnection.onicecandidate = e => console.log(e.candidate);
+peerConnection.createOffer().then(offer => peerConnection.setLocalDescription(offer));
+
+// ViteでESモジュールの設定
+import { defineConfig } from "vite";
+export default defineConfig({
+  server: { port: 3000 },
+  build: { target: "esnext" }
+});
+
+// Jest Mock
+jest.mock("axios");
+import axios from "axios";
+axios.get.mockResolvedValue({ data: { message: "Mocked!" } });
+axios.get("/api").then(res => console.log(res.data.message));

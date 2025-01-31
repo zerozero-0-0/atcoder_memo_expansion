@@ -1,0 +1,195 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <pthread.h>
+#include <time.h>
+#include <math.h>
+#include <stdbool.h>
+#include <ctype.h>
+
+// 定数とマクロ
+#define ARRAY_SIZE 10
+#define MAX_STRING_LENGTH 100
+#define SWAP(a, b, type) { type temp = a; a = b; b = temp; }
+
+// 基本構文
+void greet(const char* name) {
+    printf("Hello, %s!\n", name);
+}
+
+// 配列操作
+void printArray(int* arr, size_t size) {
+    for (size_t i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+// ファイル操作
+void writeToFile(const char* filename, const char* content) {
+    FILE* file = fopen(filename, "w");
+    if (file) {
+        fprintf(file, "%s", content);
+        fclose(file);
+    } else {
+        perror("File write error");
+    }
+}
+
+void readFromFile(const char* filename) {
+    FILE* file = fopen(filename, "r");
+    if (file) {
+        char line[MAX_STRING_LENGTH];
+        while (fgets(line, sizeof(line), file)) {
+            printf("%s", line);
+        }
+        fclose(file);
+    } else {
+        perror("File read error");
+    }
+}
+
+// 動的メモリ
+void dynamicMemoryExample() {
+    int* arr = malloc(ARRAY_SIZE * sizeof(int));
+    if (!arr) {
+        perror("Memory allocation failed");
+        return;
+    }
+    for (int i = 0; i < ARRAY_SIZE; i++) arr[i] = i + 1;
+    printArray(arr, ARRAY_SIZE);
+    free(arr);
+}
+
+// スレッド
+void* threadFunction(void* arg) {
+    int* num = (int*)arg;
+    printf("Thread %d is running\n", *num);
+    return NULL;
+}
+
+void threadExample() {
+    pthread_t threads[3];
+    int threadArgs[3] = {1, 2, 3};
+    for (int i = 0; i < 3; i++) {
+        pthread_create(&threads[i], NULL, threadFunction, &threadArgs[i]);
+    }
+    for (int i = 0; i < 3; i++) {
+        pthread_join(threads[i], NULL);
+    }
+}
+
+// 時間測定
+void measureTime() {
+    clock_t start = clock();
+    for (volatile int i = 0; i < 1e7; i++); // 忙しい待ち
+    clock_t end = clock();
+    printf("Elapsed time: %.2f seconds\n", (double)(end - start) / CLOCKS_PER_SEC);
+}
+
+// 数学関数
+void mathExample() {
+    double num = 16.0;
+    printf("Square root of %.2f is %.2f\n", num, sqrt(num));
+    printf("Cosine of 1 radian is %.2f\n", cos(1));
+}
+
+// 文字列操作
+void stringExample() {
+    char str1[] = "Hello";
+    char str2[] = "World";
+    strcat(str1, " ");
+    strcat(str1, str2);
+    printf("Concatenated string: %s\n", str1);
+
+    char str3[] = "123";
+    int num = atoi(str3);
+    printf("String to integer: %d\n", num);
+}
+
+// バブルソート
+void bubbleSort(int* arr, size_t size) {
+    for (size_t i = 0; i < size - 1; i++) {
+        for (size_t j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                SWAP(arr[j], arr[j + 1], int);
+            }
+        }
+    }
+}
+
+// 正規表現風チェック
+bool isNumber(const char* str) {
+    for (size_t i = 0; i < strlen(str); i++) {
+        if (!isdigit(str[i])) return false;
+    }
+    return true;
+}
+
+// 構造体とポインタ
+typedef struct {
+    int id;
+    char name[50];
+} Student;
+
+void printStudent(Student* student) {
+    printf("Student ID: %d, Name: %s\n", student->id, student->name);
+}
+
+// コマンドライン引数
+void handleArgs(int argc, char** argv) {
+    if (argc > 1) {
+        printf("Arguments passed:\n");
+        for (int i = 1; i < argc; i++) {
+            printf("%s\n", argv[i]);
+        }
+    } else {
+        printf("No arguments provided\n");
+    }
+}
+
+int main(int argc, char** argv) {
+    // 挨拶
+    greet("World");
+
+    // 配列操作
+    int arr[ARRAY_SIZE] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+    printf("Original array: ");
+    printArray(arr, ARRAY_SIZE);
+    bubbleSort(arr, ARRAY_SIZE);
+    printf("Sorted array: ");
+    printArray(arr, ARRAY_SIZE);
+
+    // ファイル操作
+    const char* filename = "example.txt";
+    writeToFile(filename, "Hello, File!\nThis is a C program.");
+    readFromFile(filename);
+
+    // 動的メモリ
+    dynamicMemoryExample();
+
+    // スレッド
+    threadExample();
+
+    // 時間測定
+    measureTime();
+
+    // 数学関数
+    mathExample();
+
+    // 文字列操作
+    stringExample();
+
+    // 正規表現風チェック
+    const char* testStr = "12345";
+    printf("Is \"%s\" a number? %s\n", testStr, isNumber(testStr) ? "Yes" : "No");
+
+    // 構造体とポインタ
+    Student student = {1, "Alice"};
+    printStudent(&student);
+
+    // コマンドライン引数
+    handleArgs(argc, argv);
+
+    return 0;
+}

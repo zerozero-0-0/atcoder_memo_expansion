@@ -1,0 +1,291 @@
+# 基本的な構文
+def greet(name: str) -> str:
+    return f"Hello, {name}!"
+
+print(greet("World"))
+
+# リスト内包表記
+squares = [x**2 for x in range(10)]
+
+# 辞書操作
+data = {"name": "Alice", "age": 25}
+data["age"] += 1
+
+# ファイル操作
+with open("example.txt", "w") as f:
+    f.write("This is a test file.")
+
+# エラーハンドリング
+try:
+    result = 10 / 0
+except ZeroDivisionError:
+    result = None
+
+# クラス定義
+class Person:
+    def __init__(self, name: str, age: int):
+        self.name = name
+        self.age = age
+
+    def __str__(self) -> str:
+        return f"{self.name}, {self.age} years old"
+
+person = Person("Bob", 30)
+print(person)
+
+# 標準ライブラリ例（JSON）
+import json
+json_data = json.dumps(data)
+
+# 並列処理
+from concurrent.futures import ThreadPoolExecutor
+def square(x: int) -> int:
+    return x**2
+
+with ThreadPoolExecutor() as executor:
+    results = list(executor.map(square, range(10)))
+
+# NumPyによる配列操作
+import numpy as np
+array = np.array([1, 2, 3])
+array_sum = array.sum()
+
+# pandasでデータフレーム操作
+import pandas as pd
+df = pd.DataFrame({"A": [1, 2], "B": [3, 4]})
+df["C"] = df["A"] + df["B"]
+
+# Matplotlibでプロット
+import matplotlib.pyplot as plt
+plt.plot([1, 2, 3], [4, 5, 6])
+plt.show()
+
+# 機械学習（scikit-learn）
+from sklearn.linear_model import LinearRegression
+model = LinearRegression()
+X, y = [[1], [2], [3]], [1, 2, 3]
+model.fit(X, y)
+predictions = model.predict([[4]])
+
+# 基本構文とリスト内包表記
+def greet(name: str) -> str: return f"Hello, {name}!"
+print(greet("World"));squares = [x**2 for x in range(10)];evens = [x for x in range(20) if x % 2 == 0]
+
+# 辞書操作とセット
+data = {"name": "Alice", "age": 25};data["age"] += 1;unique_items = {1, 2, 2, 3};data.update({"city": "Tokyo"})
+
+# タプルとアンパック
+coords = (10, 20);x, y = coords;print(f"x={x}, y={y}")
+
+# ファイル操作
+with open("example.txt", "w") as f: f.write("Hello\nWorld")
+with open("example.txt", "r") as f: lines = f.readlines();print(lines)
+
+# エラーハンドリング
+try: result = 10 / 0
+except ZeroDivisionError: result = None
+finally: print("Done")
+
+# クラスと特殊メソッド
+class Person: 
+ def __init__(self, name: str, age: int): self.name, self.age = name, age
+ def __str__(self): return f"{self.name}, {self.age} years old"
+ def birthday(self): self.age += 1
+p = Person("Bob", 30);p.birthday();print(p)
+
+# 標準ライブラリ（JSON, math, datetime）
+import json, math, datetime
+data_json = json.dumps(data);print(json.loads(data_json))
+circle_area = math.pi * 3**2;now = datetime.datetime.now();print(now.strftime("%Y-%m-%d"))
+
+# itertoolsとcollections
+import itertools, collections
+combinations = list(itertools.combinations([1, 2, 3], 2))
+counter = collections.Counter("hello world");print(counter.most_common(2))
+
+# 並列処理
+from concurrent.futures import ThreadPoolExecutor
+def square(x): return x**2
+with ThreadPoolExecutor() as e: results = list(e.map(square, range(10)));print(results)
+
+# NumPyとpandas
+import numpy as np, pandas as pd
+arr = np.array([1, 2, 3]);print(arr.mean())
+df = pd.DataFrame({"A": [1, 2], "B": [3, 4]});df["Sum"] = df["A"] + df["B"];print(df)
+
+# matplotlibとseaborn
+import matplotlib.pyplot as plt, seaborn as sns
+plt.plot([1, 2, 3], [4, 5, 6]);plt.title("Line Plot");plt.show()
+sns.heatmap([[1, 2], [3, 4]], annot=True);plt.show()
+
+# scikit-learnで回帰モデル
+from sklearn.linear_model import LinearRegression
+X, y = [[1], [2], [3]], [2, 4, 6];model = LinearRegression().fit(X, y)
+pred = model.predict([[4]]);print(pred)
+
+# Flaskによる簡易サーバー
+from flask import Flask, jsonify, request
+app = Flask(__name__)
+@app.route("/hello", methods=["GET"])
+def hello(): return jsonify({"message": "Hello, Flask!"})
+if __name__ == "__main__": app.run()
+
+# SQLAlchemyでDB操作
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import declarative_base, sessionmaker
+Base = declarative_base();engine = create_engine("sqlite:///:memory:");Session = sessionmaker(bind=engine);session = Session()
+class User(Base): __tablename__ = "users";id = Column(Integer, primary_key=True);name = Column(String)
+Base.metadata.create_all(engine);session.add(User(name="Alice"));session.commit();print(session.query(User).all())
+
+# 非同期処理
+import asyncio
+async def async_task(x): await asyncio.sleep(1); return x**2
+async def main(): results = await asyncio.gather(*(async_task(i) for i in range(5)));print(results)
+asyncio.run(main())
+
+# ラムダ関数とmap/filter/reduce
+nums = list(range(10))
+squared = list(map(lambda x: x**2, nums))
+filtered = list(filter(lambda x: x % 2 == 0, nums))
+from functools import reduce
+summed = reduce(lambda x, y: x + y, nums)
+
+# コンテキストマネージャ
+from contextlib import contextmanager
+@contextmanager
+def managed_resource():
+    print("Enter"); yield; print("Exit")
+with managed_resource(): print("Using resource")
+
+# ジェネレータとyield
+def fibonacci(n): a, b = 0, 1; count = 0
+while count < n: yield a; a, b = b, a + b; count += 1
+fib = list(fibonacci(10))
+
+# 正規表現
+import re
+pattern = r"\b\w+\b"
+matches = re.findall(pattern, "Python is awesome!")
+emails = re.sub(r"@example\.com", "@test.com", "user1@example.com")
+
+# pathlibでファイルパス操作
+from pathlib import Path
+path = Path("example.txt")
+if path.exists(): print(path.read_text())
+
+# 型アノテーション
+from typing import List, Dict, Tuple
+def sum_list(numbers: List[int]) -> int: return sum(numbers)
+example_dict: Dict[str, int] = {"a": 1, "b": 2}
+example_tuple: Tuple[int, str] = (42, "answer")
+
+# デコレータ
+def debug(func):
+    def wrapper(*args, **kwargs):
+        print(f"Calling {func.__name__} with {args}, {kwargs}")
+        return func(*args, **kwargs)
+    return wrapper
+@debug
+def add(a, b): return a + b
+print(add(2, 3))
+
+# ロギング
+import logging
+logging.basicConfig(level=logging.INFO)
+logging.info("This is an info message.")
+
+# tarfileとzipfile
+import tarfile, zipfile
+with tarfile.open("test.tar.gz", "w:gz") as tar: tar.add("example.txt")
+with zipfile.ZipFile("test.zip", "w") as zip: zip.write("example.txt")
+
+# 時間計測
+import time
+start = time.time()
+time.sleep(1)
+elapsed = time.time() - start;print(f"Elapsed: {elapsed:.2f}s")
+
+# functoolsのlru_cache
+from functools import lru_cache
+@lru_cache(maxsize=32)
+def fib_cached(n):
+    if n < 2: return n
+    return fib_cached(n - 1) + fib_cached(n - 2)
+print(fib_cached(30))
+
+# subprocessで外部コマンド実行
+import subprocess
+result = subprocess.run(["echo", "Hello"], capture_output=True, text=True)
+print(result.stdout)
+
+# BeautifulSoupでHTMLパース
+from bs4 import BeautifulSoup
+html = "<html><body><h1>Title</h1></body></html>"
+soup = BeautifulSoup(html, "html.parser")
+print(soup.h1.text)
+
+# WebSocket通信
+import websockets
+async def websocket_client():
+    async with websockets.connect("ws://example.com") as ws:
+        await ws.send("Hello")
+        response = await ws.recv()
+        print(response)
+# asyncio.run(websocket_client())
+
+# YAML操作
+import yaml
+yaml_str = """
+name: Alice
+age: 30
+"""
+data = yaml.safe_load(yaml_str)
+print(yaml.dump(data))
+
+# tqdmでプログレスバー
+from tqdm import tqdm
+for _ in tqdm(range(100)): time.sleep(0.01)
+
+# pytestでユニットテスト
+def test_add(): assert add(2, 3) == 5
+
+# argparseでコマンドライン引数処理
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("--name", required=True)
+args = parser.parse_args(["--name", "Alice"])
+print(args.name)
+
+# PILで画像操作
+from PIL import Image
+img = Image.new("RGB", (100, 100), "blue")
+img.save("blue_square.png")
+
+# dataclasses
+from dataclasses import dataclass
+@dataclass
+class Point: x: int; y: int
+p1 = Point(1, 2); print(p1)
+
+# スレッドとプロセス
+from threading import Thread
+from multiprocessing import Process
+def task(): print("Task executed")
+thread = Thread(target=task); thread.start(); thread.join()
+process = Process(target=task); process.start(); process.join()
+
+# OpenCVで画像処理
+import cv2
+img = cv2.imread("blue_square.png")
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+cv2.imwrite("gray_square.png", gray)
+
+# ConfigParserで設定ファイル操作
+from configparser import ConfigParser
+config = ConfigParser()
+config["DEFAULT"] = {"Server": "localhost", "Port": "8080"}
+with open("config.ini", "w") as f: config.write(f)
+
+# itertoolsで無限シーケンス
+counter = itertools.count(10, 2)
+print(next(counter), next(counter))
