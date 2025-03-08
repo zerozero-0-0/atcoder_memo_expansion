@@ -1,6 +1,6 @@
 ### AtCoder_memo_expansion
 
-ダウンロードリンク↓
+ダウンロードリンク
 chrome-extension://dhdgffkkebhmkfjojejmpbldmpobfkfo/ask.html?aid=08dde58b-39a0-4db1-8cd9-6f12f056bca4
 
 
