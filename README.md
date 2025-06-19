@@ -1,8 +1,7 @@
 ### AtCoder_memo_expansion
 
 ダウンロードリンク
-[リンク](chrome-extension://dhdgffkkebhmkfjojejmpbldmpobfkfo/ask.html?aid=08dde58b-39a0-4db1-8cd9-6f12f056bca4
-)
+[リンク](https://greasyfork.org/ja/scripts/527638-atcoder-submission-notes)
 
 
 
